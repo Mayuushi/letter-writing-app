@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-export default function MessageList() {
-  const [messages, setMessages] = useState([]);
+export default function MessageList({ messages }) {
+  if (!Array.isArray(messages)) {
+    return <p>Failed to load messages.</p>;
+  }
 
-  useEffect(() => {
-    fetch("/api/messages")
-      .then((res) => res.json())
-      .then(setMessages);
-  }, []);
+  if (messages.length === 0) {
+    return <p>No messages yet.</p>;
+  }
 
   return (
     <div className="messages">
@@ -21,3 +21,4 @@ export default function MessageList() {
     </div>
   );
 }
+
